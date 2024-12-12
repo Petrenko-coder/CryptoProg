@@ -1,21 +1,10 @@
-# Задаем имя целевого файла
-OUTPUT = file_hash
+all: hash_program
 
-# Определяем компилятор и его параметры
-COMPILER = g++
-CFLAGS = -std=c++17 -Wall -Wextra -O2
-LIBS = -lcryptopp
+hash_program: hash_program.o
+	g++ -o hash_program hash_program.o -lcryptopp
 
-# Указываем исходный файл
-SOURCE = file_hashing.cpp
+hash_program.o: hash_program.cpp
+	g++ -c hash_program.cpp -lcryptopp
 
-# Инструкция по сборке целевого файла
-$(OUTPUT): $(SOURCE)
- $(COMPILER) $(CFLAGS) -o $@ $< $(LIBS)
-
-# Команда для удаления собранного файла
 clean:
- rm -f $(OUTPUT)
-
-# Специальная цель, которая не требует файлов
-.PHONY: clean
+	rm -f *.o hash_program
